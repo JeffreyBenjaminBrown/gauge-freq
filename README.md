@@ -20,15 +20,24 @@ and the interpolated suggestions will be wrong.
 Given information about good* gauge-frequency string pairs,
 this computes good string gauges for frequencies not in that data.
 
-# The Python code is better.
+# How to use this
+
+Run the Python code.
 
 It works with CSV data. If there's a file called `data/input.csv`,
 and its columns are as described in [data/README](data/README.md),
 then running the Python code from the root of the project
 will create a new file, `data/output.csv`,
 with a column called `try-gauge` which is what you want.
+I've included sample data,
+based on my own observations of a Kite (20.5-edo) Chapman Stick.
 
-Note that the output data is likely to be incomplete,
+You can be using any tuning; it doesn't have to be a Kite guitar.
+The program only deals in Hz values, not note values.
+(The data can include note values,
+but they are just for human consumption.)
+
+Note that the output data will be incomplete
 if you ask for out-of-sample values.
 For instance, if your data gives frequency-gauge pairs
 for frequencies running from 100 Hz to 300 Hz,
@@ -42,7 +51,7 @@ even if they both lie to one side of it.
 The Haskell code is more convenient for ad-hoc calculations,
 but it doesn't handle tables.
 
-# The data used
+# The data needed and produced
 
 See [data/README](data/README.md).
 
@@ -50,4 +59,7 @@ See [data/README](data/README.md).
 
 Since I'm interested in A-440,
 C is defined in terms of that:
-C = 440 * 2 ** (10/41)
+`C = 440 * 2 ** (10/41) == 521.04 Hz`.
+
+If I were in 12-edo, it would be a hair sharper:
+`C = 440 * 2 ** (3/12) = 523.25 Hz`.
