@@ -10,6 +10,10 @@ It works with CSV data.
 The Haskell code is more convenient for ad-hoc calculations,
 but it doesn't handle tables.
 
+# The data used
+
+See the [Data README](data/README.md).
+
 # What is "middle C" in 41-edo
 
 Since I'm interested in A-440,
