@@ -12,7 +12,7 @@ but it doesn't handle tables.
 
 # The data used
 
-See the [Data README](data/README.md).
+See [data/README](data/README.md).
 
 # What is "middle C" in 41-edo
 
