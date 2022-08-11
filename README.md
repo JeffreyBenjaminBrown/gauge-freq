@@ -55,6 +55,19 @@ but it doesn't handle tables.
 
 See [data/README](data/README.md).
 
+# The key insight
+
+The interpolation algorithm is based on the fact that,
+at least in the guitars I've used,
+frequency * gauge is roughly constant.
+Given that fact, if you know that gauge `g1`
+sounds and/or feels good at frequency `f1`,
+and gauge `g2` sounds and/or feels good at frequency `f2`,
+and `f` is between `f1` and `f2`,
+you can compute the `g` corresponding to `f`.
+That's what the (very short) function
+`interpolate_to_freq()` in `gauge.py` does.
+
 # What is "middle C" in 41-edo
 
 Since I'm interested in A-440,
