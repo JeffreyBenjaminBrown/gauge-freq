@@ -84,7 +84,7 @@ def ideal_gauge_from_somewhere (
   """First tries the wound strings. If the target freq is out of that sample, tries the unwound strings."""
   ret = ideal_gauge ( freq, wound )
   return ( ret
-           if (not ret is none) & (not ret is np.nan)
+           if (not ret is None) & (not ret is np.nan)
            else ideal_gauge ( freq, unwound ) )
 
 
