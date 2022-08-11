@@ -22,9 +22,11 @@ this computes good string gauges for frequencies not in that data.
 
 # How to use this
 
-Run the Python code.
+Experiment with your guitar to create your own data.
+Run the Python code on the data.
 
-It works with CSV data. If there's a file called `data/input.csv`,
+The code works with CSV data.
+If there's a file called `data/input.csv`,
 and its columns are as described in [data/README](data/README.md),
 then running the Python code from the root of the project
 will create a new file, `data/output.csv`,
@@ -32,13 +34,13 @@ with a column called `try-gauge` which is what you want.
 I've included sample data,
 based on my own observations of a Kite (20.5-edo) Chapman Stick.
 
-You can be using any tuning; it doesn't have to be a Kite guitar.
+You can be using any tuning and any number of strings;
+it doesn't have to be a Kite guitar or a Chapman Stick.
 The program only deals in Hz values, not note values.
 (The data can include note values,
 but they are just for human consumption.)
 
-Note that the output data will be incomplete
-if you ask for out-of-sample values.
+The output data will be incomplete if you ask for out-of-sample values.
 For instance, if your data gives frequency-gauge pairs
 for frequencies running from 100 Hz to 300 Hz,
 and you ask the program what gauge fits well with 50 Hz,
@@ -70,7 +72,10 @@ That's what the (very short) function
 
 # What is "middle C" in 41-edo
 
-Since I'm interested in A-440,
+Again, this doesn't matter to the code -- all it needs are Hz values.
+It will ignore note names completely.
+
+But anyway -- since I'm interested in A-440,
 C is defined in terms of that:
 `C = 440 * 2 ** (10/41) == 521.04 Hz`.
 
