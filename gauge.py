@@ -19,8 +19,10 @@ import pandas as pd
 
 strings = ( pd.read_csv("data/input.csv")
             . drop ( columns = ["i-note", "u-note"] ) )
-wound   = strings[ strings["wound"] == True ]
-unwound = strings[ strings["wound"] == False ]
+wound   = ( strings[ strings["wound"] == True ]
+            . sort_values( "i-Hz" ) )
+unwound = ( strings[ strings["wound"] == False ]
+            . sort_values( "i-Hz" ) )
 
 
 ######################
@@ -70,11 +72,10 @@ def interpolate_to_freq (
     f2     : float, # a frequency
     g2     : float, # a gauge
 ) -> float :        # a gauge
-  """If (f1,g1) and (f2,g2) are two frequency-gauge pairs that correspond well -- i.e. a gi gauge string sounds and feels good at f1 -- then this returns the gauge corresponding to the target frequency."""
+  """If (f1,g1) and (f2,g2) are two frequency-gauge pairs that correspond well -- i.e. a gi gauge string sounds and feels good at f1 -- then this returns the gauge corresponding to the target frequency. The target does *not* have to be between f1 and f2."""
   p = log_proportion ( target, f1, f2 )
   return ( (1 - p) * f1 * g1 + p * f2 * g2 ) / target
 
-# ideal_gauge ( 90, unwound )
 def ideal_gauge (
     freq : float,
     df : pd.DataFrame
