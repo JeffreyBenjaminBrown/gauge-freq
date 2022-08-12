@@ -1,3 +1,5 @@
+# TODO: Interpolation should logarithmicize frequencies first
+
 # PITFALL: Keep measuring frequency the same way.
 
 For instance, in my case, to make the original data,
