@@ -8,6 +8,7 @@ using the two rows from the data that are nearest to
 """
 
 import math as math
+from   math import log, exp
 import numpy as np
 import pandas as pd
 
@@ -31,7 +32,16 @@ def proportion (x : float,
                 high : float ) -> float:
   """How far is x from low to high.
   For instance, proportion 3 0 5 == 0.6"""
-  return (x - low) / (high - low)
+  return ( low if high - low < 1e-5 # PITFALL: 1e-5 as an approximate 0
+                                    # is kind of a kludge.
+           else (x - low) / (high - low) )
+
+def log_proportion ( x : float,
+                     low : float,
+                     high : float ) -> float:
+  return proportion ( x = log(x),
+                      low = log(low),
+                      high = log(high) )
 
 def max_below ( freq : float,
                 df : pd.DataFrame
@@ -61,7 +71,7 @@ def interpolate_to_freq (
     g2     : float, # a gauge
 ) -> float :        # a gauge
   """If (f1,g1) and (f2,g2) are two frequency-gauge pairs that correspond well -- i.e. a gi gauge string sounds and feels good at f1 -- then this returns the gauge corresponding to the target frequency."""
-  p = proportion ( target, f1, f2 )
+  p = log_proportion ( target, f1, f2 )
   return ( (1 - p) * f1 * g1 + p * f2 * g2 ) / target
 
 # ideal_gauge ( 90, unwound )
@@ -92,9 +102,10 @@ def ideal_gauge_from_somewhere (
 ### Output data ###
 ###################
 
-strings["try-gauge"] = (
+strings["try-gauge"] = round (
   strings["u-Hz"] . apply (
-    ideal_gauge_from_somewhere ) )
+    ideal_gauge_from_somewhere ),
+  2 )
 
 strings.to_csv("data/output.csv",
                index = False )
