@@ -17,8 +17,10 @@ import pandas as pd
 ### Input data ###
 ##################
 
-strings = ( pd.read_csv("data/input.csv")
-            . drop ( columns = ["i-note", "u-note"] ) )
+strings = (
+  pd.read_csv("data/input.csv")
+  # . drop ( columns = ["i-note", "u-note"] ) # to fit on screen
+)
 wound   = ( strings[ strings["wound"] == True ]
             . sort_values( "i-Hz" ) )
 unwound = ( strings[ strings["wound"] == False ]
