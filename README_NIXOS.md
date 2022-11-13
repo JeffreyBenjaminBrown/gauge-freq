@@ -6,7 +6,7 @@ nix-shell pip-shell.nix   # Install ornery stuff pip can't handle
 python -m venv .venv/     # Make virtualenv if needed
 source .venv/bin/activate # Start the virtualenv
 PS1="(nix > venv) \W\$ "  # Shorten the prompt
-python -m pip install -r python/requirements.txt
+python -m pip install -r requirements.txt
 python -m pip install --upgrade pip mypy
 
 ## Step by step

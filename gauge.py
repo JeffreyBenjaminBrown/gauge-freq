@@ -21,6 +21,7 @@ strings = (
   pd.read_csv("data/input.csv")
   # . drop ( columns = ["i-note", "u-note"] ) # to fit on screen
 )
+
 wound   = ( strings[ strings["wound"] == True ]
             . sort_values( "i-Hz" ) )
 unwound = ( strings[ strings["wound"] == False ]
@@ -31,25 +32,27 @@ unwound = ( strings[ strings["wound"] == False ]
 ### Some Functions ###
 ######################
 
-def proportion (x : float,
-                low : float,
-                high : float ) -> float:
+def proportion ( x    :  float,
+                 low  :  float,
+                 high :  float
+                )     -> float:
   """How far is x from low to high.
   For instance, proportion 3 0 5 == 0.6"""
   return ( low if high - low < 1e-5 # PITFALL: 1e-5 as an approximate 0
                                     # is kind of a kludge.
            else (x - low) / (high - low) )
 
-def log_proportion ( x : float,
-                     low : float,
-                     high : float ) -> float:
+def log_proportion ( x    :  float,
+                     low  :  float,
+                     high :  float
+                    )     -> float:
   return proportion ( x = log(x),
                       low = log(low),
                       high = log(high) )
 
-def max_below ( freq : float,
-                df : pd.DataFrame
-               ) -> pd.Series:
+def max_below ( freq :  float,
+                df   :  pd.DataFrame
+               )     -> pd.Series:
   "The string with the highest observed frequency below `freq`."
   df = ( df [ df["i-Hz"] <= freq ]
          . sort_values ( [ "i-Hz" ] ) )
@@ -57,9 +60,9 @@ def max_below ( freq : float,
     return df.iloc[-1]
   else: return None
 
-def min_above ( freq : float,
-                df : pd.DataFrame
-               ) -> pd.Series:
+def min_above ( freq :  float,
+                df   :  pd.DataFrame
+               )     -> pd.Series:
   "The string with the least observed frequency above `freq`."
   df = ( df [ df["i-Hz"] >= freq ]
          . sort_values ( [ "i-Hz" ] ) )
@@ -68,12 +71,12 @@ def min_above ( freq : float,
   else: return None
 
 def interpolate_to_freq (
-    target : float, # a frequency
-    f1     : float, # a frequency
-    g1     : float, # a gauge
-    f2     : float, # a frequency
-    g2     : float, # a gauge
-) -> float :        # a gauge
+    target :  float,  # a frequency
+    f1     :  float,  # a frequency
+    g1     :  float,  # a gauge
+    f2     :  float,  # a frequency
+    g2     :  float,  # a gauge
+)          -> float : # a gauge
   """If (f1,g1) and (f2,g2) are two frequency-gauge pairs that correspond well -- i.e. a gi gauge string sounds and feels good at f1 -- then this returns the gauge corresponding to the target frequency. The target does *not* have to be between f1 and f2."""
   p = log_proportion ( target, f1, f2 )
   return ( (1 - p) * f1 * g1 + p * f2 * g2 ) / target
@@ -104,6 +107,10 @@ def ideal_gauge_from_somewhere (
 ###################
 ### Output data ###
 ###################
+
+strings["err"] = (
+      strings["u-41"] + 41 * strings["u-oct"]
+  - ( strings["i-41"] + 41 * strings["i-oct"] ) )
 
 strings["try-gauge"] = round (
   strings["u-Hz"] . apply (

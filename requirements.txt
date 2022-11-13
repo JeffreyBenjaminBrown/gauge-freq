@@ -1,0 +1,15 @@
+## If this looks weird see `README.md`.
+
+# I also install some things via the pip-shell.nix file.
+
+# # Things NixOS won't install.
+pandas-stubs
+
+# # Things NixOS *could* install
+# # (at least for *some* version of Python, maybe not 3.10),
+# # but I'm tring them from a virtualenv anyway,
+# # even though in most cases I don't need to.
+mypy
+pytest
+typing
+virtualenv
